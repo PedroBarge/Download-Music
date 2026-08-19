@@ -1,24 +1,35 @@
 from info import repo
 from download import download_audio
+import time
+
 
 def main():
+    resources = repo.get("resources")
+    library_songs = resources.get("library-songs")
+    library_songs_keys = library_songs.keys()
 
-    resources:dict = repo.get("resources")
+    failed = []
+    total = len(list(library_songs_keys))
 
-    library_songs:dict = resources.get("library-songs")
-
-    library_songs_keys = list(library_songs.keys())
-
-    for key in library_songs_keys:
-        id:dict = library_songs.get(key)
-        attributes = id.get("attributes")
-        albumName = attributes.get("albumName")
-        artistName = attributes.get("artistName")
+    for i, key in enumerate(library_songs.keys(), 1):
+        song = library_songs.get(key)
+        attributes = song.get("attributes")
+        artist_name = attributes.get("artistName")
         name = attributes.get("name")
-        print(f"{name} by {artistName}")
+        query = f"{name} {artist_name}"
 
-        query = f"{name} {artistName}"
-        download_audio(query)
+        print(f"[{i}/{total}] {name} by {artist_name}")
+
+        success = download_audio(query)
+        if not success:
+            failed.append(query)
+
+        time.sleep(2)
+
+    print(f"\nConcluído. {len(failed)} falharam:")
+    for f in failed:
+        print(f" - {f}")
 
 
-main()
+if __name__ == "__main__":
+    main()

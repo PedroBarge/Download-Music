@@ -1,8 +1,22 @@
 import subprocess
+import shutil
+import os
+
 
 def download_audio(query, output_dir="downloads"):
-    subprocess.run([
-        "spotdl", "download", query,
+    spotdl_path = shutil.which("spotdl")
+    if not spotdl_path:
+        spotdl_path = os.path.join(os.path.dirname(__file__), ".venv", "bin", "spotdl")
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    result = subprocess.run([
+        spotdl_path, "download", query,
         "--output", f"{output_dir}/{{artists}} - {{title}}.{{output-ext}}",
-        "--cookies-from-browser", "firefox"
+        "--archive", "archive.spotdl",
+        "--ffmpeg", "/home/barge/.config/spotdl/ffmpeg",
+        "--yt-dlp-args", "--cookies-from-browser firefox",
+        "--print-errors",
     ])
+
+    return result.returncode == 0
