@@ -1,0 +1,4 @@
+requests>=2.31.0
+spotipy>=2.24.0
+spotdl>=4.4.0
+yt-dlp>=2024.1.0

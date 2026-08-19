@@ -2,6 +2,8 @@ import subprocess
 import shutil
 import os
 
+FFMPEG_PATH = os.environ.get("FFMPEG_PATH", "/home/barge/.config/spotdl/ffmpeg")
+
 
 def download_audio(query, output_dir="downloads"):
     spotdl_path = shutil.which("spotdl")
@@ -14,7 +16,7 @@ def download_audio(query, output_dir="downloads"):
         spotdl_path, "download", query,
         "--output", f"{output_dir}/{{artists}} - {{title}}.{{output-ext}}",
         "--archive", "archive.spotdl",
-        "--ffmpeg", "/home/barge/.config/spotdl/ffmpeg",
+        "--ffmpeg", FFMPEG_PATH,
         "--yt-dlp-args", "--cookies-from-browser firefox",
         "--print-errors",
     ])

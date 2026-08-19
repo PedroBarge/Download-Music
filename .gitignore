@@ -1,3 +1,6 @@
 __pycache__
 cookies.txt
 .idea
+.spotify_cache
+archive.spotdl
+downloads/

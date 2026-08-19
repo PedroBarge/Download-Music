@@ -1,34 +1,28 @@
-from info import repo
-from download import download_audio
-import time
+import music_services.apple_music as apple_music
+import music_services.spotify as spotify
+import music_services.youtube as youtube
 
 
 def main():
-    resources = repo.get("resources")
-    library_songs = resources.get("library-songs")
-    library_songs_keys = library_songs.keys()
+    print("=== Download Music ===\n")
+    print("Escolhe a plataforma:")
+    print("  1. Apple Music")
+    print("  2. Spotify")
+    print("  3. YouTube")
+    print()
 
-    failed = []
-    total = len(list(library_songs_keys))
+    choice = input("Opção: ").strip()
 
-    for i, key in enumerate(library_songs.keys(), 1):
-        song = library_songs.get(key)
-        attributes = song.get("attributes")
-        artist_name = attributes.get("artistName")
-        name = attributes.get("name")
-        query = f"{name} {artist_name}"
-
-        print(f"[{i}/{total}] {name} by {artist_name}")
-
-        success = download_audio(query)
-        if not success:
-            failed.append(query)
-
-        time.sleep(2)
-
-    print(f"\nConcluído. {len(failed)} falharam:")
-    for f in failed:
-        print(f" - {f}")
+    if choice == "1":
+        apple_music.apple_music_request()
+    elif choice == "2":
+        playlist_url = input("URL da playlist (ou Enter para ver as tuas playlists): ").strip()
+        spotify.spotify_request(playlist_url or None)
+    elif choice == "3":
+        playlist_url = input("URL da playlist do YouTube: ").strip()
+        youtube.youtube_request(playlist_url or None)
+    else:
+        print("Opção inválida.")
 
 
 if __name__ == "__main__":
