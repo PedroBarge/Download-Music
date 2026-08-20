@@ -1,8 +1,20 @@
 import subprocess
 import shutil
 import os
+import time
+from typing import Any
 
-FFMPEG_PATH = os.environ.get("FFMPEG_PATH", "/home/barge/.config/spotdl/ffmpeg")
+
+def cycle_to_download(failed: list[Any], songs: list[Any], total: int):
+    for i, song in enumerate(songs, 1):
+        query = f"{song['name']} {song['artist']}"
+        print(f"[{i}/{total}] {song['name']} by {song['artist']}")
+
+        success = download_audio(query)
+        if not success:
+            failed.append(query)
+
+        time.sleep(2)
 
 
 def download_audio(query, output_dir="downloads"):
@@ -16,7 +28,7 @@ def download_audio(query, output_dir="downloads"):
         spotdl_path, "download", query,
         "--output", f"{output_dir}/{{artists}} - {{title}}.{{output-ext}}",
         "--archive", "archive.spotdl",
-        "--ffmpeg", FFMPEG_PATH,
+        "--ffmpeg", "/home/barge/.config/spotdl/ffmpeg",
         "--yt-dlp-args", "--cookies-from-browser firefox",
         "--print-errors",
     ])

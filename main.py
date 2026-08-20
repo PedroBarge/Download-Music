@@ -1,28 +1,25 @@
-import music_services.apple_music as apple_music
-import music_services.spotify as spotify
-import music_services.youtube as youtube
+from source.apple_music import load_apple_music
+from source.spotify import load_spotify
 
 
 def main():
-    print("=== Download Music ===\n")
-    print("Escolhe a plataforma:")
-    print("  1. Apple Music")
-    print("  2. Spotify")
-    print("  3. YouTube")
-    print()
+    print("Supported sources:")
+    print("1. Apple Music")
+    print("2. Spotify")
+    print("3. YouTube Music")
 
-    choice = input("Opção: ").strip()
+    user_response = input("->")
+    if user_response == "1":
+        load_apple_music.main()
+        return
+    elif user_response == "2":
+        load_spotify.main()
+        return
+    elif user_response == "3":
 
-    if choice == "1":
-        apple_music.apple_music_request()
-    elif choice == "2":
-        playlist_url = input("URL da playlist (ou Enter para ver as tuas playlists): ").strip()
-        spotify.spotify_request(playlist_url or None)
-    elif choice == "3":
-        playlist_url = input("URL da playlist do YouTube: ").strip()
-        youtube.youtube_request(playlist_url or None)
+        return
     else:
-        print("Opção inválida.")
+        print("Invalid option.")
 
 
 if __name__ == "__main__":
