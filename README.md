@@ -66,8 +66,6 @@ Download-Music/
 | Package     | Purpose                              |
 |-------------|--------------------------------------|
 | `spotdl`    | Audio downloader (wraps yt-dlp + ffmpeg) |
-| `spotipy`   | Spotify Web API client               |
-| `ytmusicapi`| YouTube Music API client             |
 | `requests`  | HTTP requests for embed page scraping|
 
 ## Notes
