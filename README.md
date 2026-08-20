@@ -31,11 +31,11 @@ python main.py
 
 Select a source when prompted:
 
-| Option | Source       | Status        |
-|--------|-------------|---------------|
-| 1      | Apple Music | Working       |
-| 2      | Spotify     | Working       |
-| 3      | YouTube Music | Incomplete  |
+| Option | Source       | Status  |
+|--------|-------------|---------|
+| 1      | Apple Music | Working |
+| 2      | Spotify     | Working |
+| 3      | YouTube Music | Working |
 
 Downloaded files are saved to the `downloads/` directory.
 
