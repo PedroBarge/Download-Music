@@ -1,5 +1,6 @@
 from source.apple_music import load_apple_music
 from source.spotify import load_spotify
+from source.youtube import load_youtube
 
 
 def main():
@@ -8,7 +9,7 @@ def main():
     print("2. Spotify")
     print("3. YouTube Music")
 
-    user_response = input("->")
+    user_response = input("-> ")
     if user_response == "1":
         load_apple_music.main()
         return
@@ -16,7 +17,7 @@ def main():
         load_spotify.main()
         return
     elif user_response == "3":
-
+        load_youtube.main()
         return
     else:
         print("Invalid option.")
